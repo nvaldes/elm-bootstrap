@@ -1,6 +1,5 @@
 module Bootstrap.Internal.Card exposing (..)
 
-
 import Html
 import Html.Attributes exposing (class)
 import Color
@@ -8,12 +7,10 @@ import Bootstrap.Internal.Text as Text
 import Bootstrap.Internal.ListGroup as ListGroup
 
 
-
 type CardOption msg
     = Aligned Text.HAlign
     | Coloring RoleOption
     | Attrs (List (Html.Attribute msg))
-
 
 
 type RoleOption
@@ -33,7 +30,7 @@ type Role
 type alias CardOptions msg =
     { aligned : Maybe Text.HAlign
     , coloring : Maybe RoleOption
-    , attributes : List (Html.Attribute msg )
+    , attributes : List (Html.Attribute msg)
     }
 
 
@@ -92,6 +89,20 @@ block options items =
         |> CardBlock
 
 
+wrappedBlock :
+    List (Html.Attribute msg)
+    -> List (BlockOption msg)
+    -> List (BlockItem msg)
+    -> CardBlock msg
+wrappedBlock wrapOptions blockOptions items =
+    Html.div wrapOptions
+        [ Html.div
+            (blockAttributes blockOptions)
+            (List.map (\(BlockItem e) -> e) items)
+        ]
+        |> CardBlock
+
+
 listGroup : List (ListGroup.Item msg) -> CardBlock msg
 listGroup items =
     Html.ul
@@ -141,29 +152,29 @@ cardAttributes modifiers =
             List.foldl applyModifier defaultOptions modifiers
     in
         [ class "card" ]
-        ++ (case options.coloring of
-                Just (Roled role) ->
-                    [ class <| "card-inverse card-" ++ roleOption role ]
+            ++ (case options.coloring of
+                    Just (Roled role) ->
+                        [ class <| "card-inverse card-" ++ roleOption role ]
 
-                Just (Outlined role) ->
-                    [ class <| "card-outline-" ++ roleOption role ]
+                    Just (Outlined role) ->
+                        [ class <| "card-outline-" ++ roleOption role ]
 
-                Just (Inverted color) ->
-                    [ class "card-inverse"
-                    , Html.Attributes.style [("background-color", toRGBString color), ("border-color", toRGBString color)]
-                    ]
+                    Just (Inverted color) ->
+                        [ class "card-inverse"
+                        , Html.Attributes.style [ ( "background-color", toRGBString color ), ( "border-color", toRGBString color ) ]
+                        ]
 
-                Nothing ->
-                    []
-            )
-        ++ ( case options.aligned of
-                Just align ->
-                    [ Text.textAlignClass align ]
+                    Nothing ->
+                        []
+               )
+            ++ (case options.aligned of
+                    Just align ->
+                        [ Text.textAlignClass align ]
 
-                Nothing ->
-                    []
-            )
-        ++ options.attributes
+                    Nothing ->
+                        []
+               )
+            ++ options.attributes
 
 
 defaultOptions : CardOptions msg
@@ -172,6 +183,7 @@ defaultOptions =
     , coloring = Nothing
     , attributes = []
     }
+
 
 applyModifier : CardOption msg -> CardOptions msg -> CardOptions msg
 applyModifier option options =
@@ -184,7 +196,6 @@ applyModifier option options =
 
         Attrs attrs ->
             { options | attributes = options.attributes ++ attrs }
-
 
 
 roleOption : Role -> String

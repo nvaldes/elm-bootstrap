@@ -112,15 +112,14 @@ import Bootstrap.Internal.Card as CardInternal
 
 {-| Opaque type representing options for customizing the styling of a card
 -}
-type alias CardOption msg = CardInternal.CardOption msg
-
+type alias CardOption msg =
+    CardInternal.CardOption msg
 
 
 {-| Opaque type representing options for styling a card block
 -}
-type alias BlockOption msg = CardInternal.BlockOption msg
-
-
+type alias BlockOption msg =
+    CardInternal.BlockOption msg
 
 
 {-| Opaque type representing the view configuration of a card
@@ -177,8 +176,8 @@ type CardBlock msg
 
 {-| Opaque type representing a legal card block child element
 -}
-type alias BlockItem msg = CardInternal.BlockItem msg
-
+type alias BlockItem msg =
+    CardInternal.BlockItem msg
 
 
 
@@ -261,7 +260,9 @@ outlineDanger : CardOption msg
 outlineDanger =
     CardInternal.Coloring <| CardInternal.Outlined CardInternal.Danger
 
-{-| Give cards a custom dark background color with light text -}
+
+{-| Give cards a custom dark background color with light text
+-}
 inverted : Color.Color -> CardOption msg
 inverted color =
     CardInternal.Coloring <| CardInternal.Inverted color
@@ -310,13 +311,13 @@ view :
     -> Html.Html msg
 view (Config { options, header, footer, imgTop, imgBottom, blocks }) =
     Html.div
-        (CardInternal.cardAttributes options )
+        (CardInternal.cardAttributes options)
         (List.filterMap
             identity
             [ Maybe.map (\(CardHeader e) -> e) header
             , Maybe.map (\(CardImageTop e) -> e) imgTop
             ]
-            ++ ( CardInternal.renderBlocks blocks )
+            ++ (CardInternal.renderBlocks blocks)
             ++ List.filterMap
                 identity
                 [ Maybe.map (\(CardFooter e) -> e) footer
@@ -551,7 +552,24 @@ block options items (Config config) =
         { config
             | blocks =
                 config.blocks
-                    ++ [ CardInternal.block options items]
+                    ++ [ CardInternal.block options items ]
+        }
+
+
+{-| You may add a wrapper around your blocks to, for example, replicate the accordion demo from the Bootstrap docs.  Be sure to add the appropriate IDs and data attributes to the block, as well as to the data link.
+-}
+wrappedBlock :
+    List (Html.Attribute msg)
+    -> List (BlockOption msg)
+    -> List (BlockItem msg)
+    -> Config msg
+    -> Config msg
+wrappedBlock wrapOptions blockOptions items (Config config) =
+    Config
+        { config
+            | blocks =
+                config.blocks
+                    ++ [ CardInternal.wrappedBlock wrapOptions blockOptions items ]
         }
 
 
@@ -569,9 +587,6 @@ listGroup items (Config config) =
                 config.blocks
                     ++ [ CardInternal.listGroup items ]
         }
-
-
-
 
 
 {-| Create link elements that are placed next to each other in a block using this function
@@ -600,11 +615,12 @@ text attributes children =
         |> CardInternal.BlockItem
 
 
-{-|  Add a custom HTML element to be displayed in a Card block
+{-| Add a custom HTML element to be displayed in a Card block
 -}
 custom : Html.Html msg -> BlockItem msg
 custom element =
     CardInternal.BlockItem element
+
 
 {-| Create a block quote element
 
@@ -729,5 +745,3 @@ columns cards =
 
 
 -- PRIVATE Helpers etc
-
-
