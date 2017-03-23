@@ -31,6 +31,7 @@ module Bootstrap.Card
         , headerH5
         , headerH6
         , block
+        , wrappedBlock
         , blockAlign
         , listGroup
         , titleH1
@@ -78,7 +79,7 @@ You can customize the look and feel of your cards using the following options
 
 
 # Blocks
-@docs block, listGroup, CardBlock, BlockItem
+@docs block, wrappedBlock, listGroup, CardBlock, BlockItem
 
 
 ## Block title
