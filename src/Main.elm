@@ -1,8 +1,14 @@
 module Main exposing (..)
 
-import Html exposing (text)
+{-| DEPRECATED - See http://package.elm-lang.org/packages/rundis/elm-bootstrap
+@docs Model, Msg, main, update, view
+-}
+
+import Html exposing (Html, text)
 
 
+{-| DEPRECATED - See http://package.elm-lang.org/packages/rundis/elm-bootstrap
+-}
 main : Program Never Model Msg
 main =
     Html.beginnerProgram
@@ -12,19 +18,27 @@ main =
         }
 
 
+{-| DEPRECATED - See http://package.elm-lang.org/packages/rundis/elm-bootstrap
+-}
 type alias Model =
     {}
 
 
+{-| DEPRECATED - See http://package.elm-lang.org/packages/rundis/elm-bootstrap
+-}
 type Msg
     = NoOp
 
 
-update : Msg -> Model -> ( Model, Cmd msg )
-update model =
-    model ! []
+{-| DEPRECATED - See http://package.elm-lang.org/packages/rundis/elm-bootstrap
+-}
+update : Msg -> Model -> Model
+update msg model =
+    model
 
 
+{-| DEPRECATED - See http://package.elm-lang.org/packages/rundis/elm-bootstrap
+-}
 view : Model -> Html Msg
 view model =
     text ""
