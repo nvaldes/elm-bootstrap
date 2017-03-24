@@ -6,7 +6,7 @@
     "source-directories": [
         "src/"
     ],
-    "exposed-modules": [ "main" ],
+    "exposed-modules": [ "Main" ],
     "dependencies": {},
     "elm-version": "0.18.0 <= v < 0.19.0"
 }
