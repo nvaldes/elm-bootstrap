@@ -1,12 +1,12 @@
 {
-    "version": "2.0.0",
+    "version": "1.1.1",
     "summary": "DEPRECATED - See http://package.elm-lang.org/packages/rundis/elm-bootstrap",
     "repository": "https://github.com/nvaldes/elm-bootstrap.git",
     "license": "BSD3",
     "source-directories": [
         "src/"
     ],
-    "exposed-modules": [],
+    "exposed-modules": [ "main" ],
     "dependencies": {},
     "elm-version": "0.18.0 <= v < 0.19.0"
 }
